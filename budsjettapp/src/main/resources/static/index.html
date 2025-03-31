@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budsjett</title>
+    <link rel="stylesheet" href="styles/style.css">
+   
+    <script src="budsjett.js"></script>
+    <script src="forbruk.js"></script>
+</head>
+<body>
+    <div class="side-wrapper">
+        <br>
+        <div class="budsjett-wrapper">
+            <div class="budsjett-header">
+                <h2 class="budsjett-h2">Budsjett</h2>
+                <div class="budsjett-tittel-og-knapp">
+                    <input placeholder="Tittel..." id="budsjett-tittel" class="budsjett-tittel">
+                    <button onclick="leggTilBudsjett()" class="budsjett-header-knapp">+</button>
+                </div>
+            </div>
+            <hr>
+            <div class="budsjett-container" id="budsjett-container">
+                <p id="budsjett-container-p">Legg til budsjett!</p>
+            </div>
+        </div>
+        <!--
+            <div class="forbruk-wrapper">
+                <div class="forbruk-header">
+                    <h2>Forbruk</h2>
+                    <button onclick="leggTilForbruk()">Legg til forbuk</button>
+                </div>
+                <div class="forbruk-container" id="forbruk-container">
+                    
+                </div>
+            </div>
+        -->
+    </div>
+
+
+</body>
+</html>
