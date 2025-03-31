@@ -8,34 +8,50 @@
    
     <script src="budsjett.js"></script>
     <script src="forbruk.js"></script>
+    <script src="ark.js"></script>
 </head>
 <body>
     <div class="side-wrapper">
         <br>
-        <div class="budsjett-wrapper">
-            <div class="budsjett-header">
-                <h2 class="budsjett-h2">Budsjett</h2>
-                <div class="budsjett-tittel-og-knapp">
-                    <input placeholder="Tittel..." id="budsjett-tittel" class="budsjett-tittel">
-                    <button onclick="leggTilBudsjett()" class="budsjett-header-knapp">+</button>
+        <div class="wrapper">
+            <div class="header">
+                <div class="budsjett-forbruk">
+                    <h2 id="budsjett-h2" class="budsjett-h2" onclick="bytteTilBudsjett()">Budsjett</h2>
+                    <p style="color: rgb(95, 133, 117); user-select: none;">/</p>
+                    <h2 id="forbruk-h2" class="forbruk-h2" onclick="bytteTilForbruk()">Forbruk</h2>
+                </div>
+                <div class="tittel-og-knapp" id="tittel-og-knapp">
+                    <input placeholder="Legg til budsjett..." id="budsjett-tittel" class="tittel">
+                    <button onclick="leggTilBudsjett()" class="header-knapp">+</button>
                 </div>
             </div>
-            <hr>
-            <div class="budsjett-container" id="budsjett-container">
-                <p id="budsjett-container-p">Legg til budsjett!</p>
+            <br><hr style="border: 1px solid rgb(95, 133, 117);"><br>
+            <div class="ark-innhold-wrapper">
+                <div class="ark-wrapper">
+                    <p id="ark-1" style="border: 1px solid rgb(95, 133, 117); border-radius: 5px; width: 110px; height: 25px;">• April</p>
+                    <p>• Mars</p>
+                    <p>• Februar</p>
+                    <br>
+                    <button class="legg-til-ark">+</button>
+                </div>
+                <div class="container" id="budsjett-container">
+                    <div class="ark-tittel-wrapper">
+                        <input placeholder="Navn på side..." value="April" class="ark-tittel" id="ark-tittel-budsjett">
+                        <button class="ark-knapp" onclick="endreArkNavnBudsjett()"></button>
+                    </div>
+                    <br>
+                    <p id="budsjett-container-p">Legg til budsjett!</p>
+                </div>
+                <div class="container" id="forbruk-container" style="display: none;">
+                    <div class="ark-tittel-wrapper">
+                        <input placeholder="Navn på side..." value="April" class="ark-tittel" id="ark-tittel-forbruk">
+                        <button class="ark-knapp" onclick="endreArkNavnForbruk()"></button>
+                    </div>
+                    <br>
+                    <p id="forbruk-container-p">Legg til forbruk!</p>
+                </div>
             </div>
         </div>
-        <!--
-            <div class="forbruk-wrapper">
-                <div class="forbruk-header">
-                    <h2>Forbruk</h2>
-                    <button onclick="leggTilForbruk()">Legg til forbuk</button>
-                </div>
-                <div class="forbruk-container" id="forbruk-container">
-                    
-                </div>
-            </div>
-        -->
     </div>
 
 
