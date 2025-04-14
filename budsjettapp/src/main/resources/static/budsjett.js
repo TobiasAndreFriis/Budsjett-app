@@ -1,3 +1,5 @@
+let teller = 0;
+
 function bytteTilBudsjett(){
     document.getElementById("budsjett-h2").style.color = "black";
     document.getElementById("forbruk-h2").style.color = "grey";
@@ -22,18 +24,23 @@ function leggTilBudsjett(){
     console.log(budsjettTittelValue)
     nyItem.innerHTML = `
     <label class="budsjett-label">${budsjettTittelValue}</label>
-    <label class="budsjett-forbruk-label" id="budsjett-forbruk-label-${budsjettTittelValue}">1000-300=700</label>
+    <label class="budsjett-forbruk-label" id="budsjett-forbruk-label-${budsjettTittelValue}">0-0=0</label>
     <div class="budsjett-verdi">
         <input placeholder="Beløp..." id="budsjett-verdi-${budsjettTittelValue}" class="budsjett-item-tall">
-        <button class="budsjett-item-knapp" onclick="endreBudsjettForbrukLabel(${budsjettTittelValue})">Endre</button>
+        <button class="budsjett-item-knapp" onclick="endreBudsjettForbrukLabel('${budsjettTittelValue}')">Endre</button>
     </div>
     `
     container.appendChild(nyItem);
+    if(teller === 0){localStorage.clear()}
+    localStorage.setItem(teller, budsjettTittelValue);
+    localStorage.setItem(budsjettTittelValue, 0);
+    teller++;
     budsjettTittel.value = "";
 }
 
 function endreBudsjettForbrukLabel(budsjettTittelValue){
-    console.log("hei")
     let budsjettVerdi = document.getElementById(`budsjett-verdi-${budsjettTittelValue}`).value;
-    document.getElementById(`budsjett-forbruk-label-${budsjettTittelValue}`).innerText = "0/"+budsjettVerdi;
+    let sumForbruk = localStorage.getItem(budsjettTittelValue);
+    let sum = budsjettVerdi - sumForbruk;
+    document.getElementById(`budsjett-forbruk-label-${budsjettTittelValue}`).innerText = budsjettVerdi+"-"+sumForbruk+"="+sum;
 }

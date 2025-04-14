@@ -32,7 +32,7 @@ body{
 .ark-wrapper{
     flex-grow: 2;
     font-size: smaller;
-    text-align: left;
+    text-align: center;
     position: relative;
 }
 .legg-til-ark{
@@ -48,7 +48,7 @@ body{
     font-size: medium;
     cursor: pointer;
     position: absolute;
-    left: 0;
+    margin: auto;
     transition: transform 0.3s ease-in-out;
 }
 .legg-til-ark:hover{
@@ -265,5 +265,11 @@ body{
     border-radius: 5px;
     cursor: pointer;
     border: 1px solid black;
+    font-family: inherit;
+}
+.forbruk-item-gruppe{
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 50px;
     font-family: inherit;
 }
