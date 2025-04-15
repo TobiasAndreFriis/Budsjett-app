@@ -38,17 +38,19 @@ function leggTilForbruk(){
 
 function endreForbrukLabel(forbrukTittelValue){
     let gruppe = document.getElementById(`gruppe-valg-${forbrukTittelValue}`);
-    if(gruppe.textContent === "Gruppe..."){return;}
-    console.log(gruppe.value)
+    if(gruppe.value === "gruppe"){return;}
     let budsjettVerdi = document.getElementById(`budsjett-verdi-${gruppe.value}`).value;
-    let sumForbruk = localStorage.getItem(gruppe.value);
+    if(budsjettVerdi === ""){budsjettVerdi = 0;}
+    let sumForbruk = parseInt(localStorage.getItem(gruppe.value));
     let forbrukVerdi = document.getElementById(`forbruk-verdi-${forbrukTittelValue}`).value;
     console.log(sumForbruk, forbrukVerdi, budsjettVerdi)
     if(sumForbruk === null){sumForbruk = 0;}
-    sumForbruk += forbrukVerdi;
-    localStorage.setItem(gruppe, sumForbruk);
-    let sum = budsjettVerdi - sumForbruk;
+    sumForbruk += parseInt(forbrukVerdi);
+    localStorage.setItem(gruppe.value, sumForbruk);
+    console.log(typeof(budsjettVerdi))
+    let sum = parseInt(budsjettVerdi) - sumForbruk;
     document.getElementById(`budsjett-forbruk-label-${gruppe.value}`).innerText = budsjettVerdi+"-"+sumForbruk+"="+sum;
+    console.log(localStorage.getItem(gruppe.value))
 }
 
 function leggeTilGrupper(){
@@ -63,7 +65,6 @@ function leggeTilGrupper(){
         for(let i = 0; i < localStorage.length; i++){
             if(localStorage.getItem(i) != null){
                 let options = document.createElement("option")
-                console.log("Her: "+localStorage.getItem(i))
                 options.value = localStorage.getItem(i).toLocaleLowerCase();
                 options.textContent = localStorage.getItem(i);
                 select.appendChild(options);
