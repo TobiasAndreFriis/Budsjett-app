@@ -2,7 +2,7 @@ function bytteTilForbruk(){
     document.getElementById("budsjett-h2").style.color = "grey";
     document.getElementById("forbruk-h2").style.color = "black";
     let tittelOgKnapp = `
-    <input placeholder="Legg til forbruk..." id="forbruk-tittel" class="tittel">
+    <input placeholder="Legg til forbruk..." id="forbruk-tittel" class="tittel" onkeydown="if(event.key === 'Enter'){ leggTilForbruk(); }">
     <button onclick="leggTilForbruk()" class="header-knapp">+</button>
     `
     let tittelOgKnappDiv = document.getElementById("tittel-og-knapp");
@@ -37,16 +37,18 @@ function leggTilForbruk(){
 }
 
 function endreForbrukLabel(forbrukTittelValue){
-    let gruppe = document.getElementById(`gruppe-valg-${forbrukTittelValue}`).textContent;
-    if(gruppe === "Gruppe..."){return;}
-    let budsjettVerdi = document.getElementById(`budsjett-verdi-${gruppe}`);
-    let sumForbruk = localStorage.getItem(gruppe);
+    let gruppe = document.getElementById(`gruppe-valg-${forbrukTittelValue}`);
+    if(gruppe.textContent === "Gruppe..."){return;}
+    console.log(gruppe.value)
+    let budsjettVerdi = document.getElementById(`budsjett-verdi-${gruppe.value}`).value;
+    let sumForbruk = localStorage.getItem(gruppe.value);
     let forbrukVerdi = document.getElementById(`forbruk-verdi-${forbrukTittelValue}`).value;
+    console.log(sumForbruk, forbrukVerdi, budsjettVerdi)
     if(sumForbruk === null){sumForbruk = 0;}
     sumForbruk += forbrukVerdi;
     localStorage.setItem(gruppe, sumForbruk);
     let sum = budsjettVerdi - sumForbruk;
-    document.getElementById(`budsjett-forbruk-label-${gruppe}`).innerText = budsjettVerdi+"-"+sumForbruk+"="+sum;
+    document.getElementById(`budsjett-forbruk-label-${gruppe.value}`).innerText = budsjettVerdi+"-"+sumForbruk+"="+sum;
 }
 
 function leggeTilGrupper(){
@@ -59,10 +61,13 @@ function leggeTilGrupper(){
         optionBlank.value = "gruppe"
         select.appendChild(optionBlank);
         for(let i = 0; i < localStorage.length; i++){
-         let options = document.createElement("option")
-         options.value = localStorage.getItem(i).toLocaleLowerCase();
-         options.textContent = localStorage.getItem(i);
-         select.appendChild(options);
+            if(localStorage.getItem(i) != null){
+                let options = document.createElement("option")
+                console.log("Her: "+localStorage.getItem(i))
+                options.value = localStorage.getItem(i).toLocaleLowerCase();
+                options.textContent = localStorage.getItem(i);
+                select.appendChild(options);
+            }
         }
 
     })
