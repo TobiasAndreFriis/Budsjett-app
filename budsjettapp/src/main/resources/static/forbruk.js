@@ -17,9 +17,10 @@ function leggTilForbruk(){
     const container = document.getElementById("forbruk-container");
     document.getElementById("forbruk-container-p").style.display = "none";
     const nyItem = document.createElement("div");
-    nyItem.className = "forbruk-item"
+    nyItem.className = "forbruk-item";
     const forbrukTittel = document.getElementById("forbruk-tittel");
     const forbrukTittelValue = forbrukTittel.value;
+    nyItem.id = `forbruk-item-${forbrukTittelValue}`;
     console.log(forbrukTittelValue)
     nyItem.innerHTML = `
     <label class="forbruk-label">${forbrukTittelValue}</label>
@@ -30,10 +31,23 @@ function leggTilForbruk(){
         <input placeholder="Beløp..." id="forbruk-verdi-${forbrukTittelValue}" class="forbruk-item-tall">
         <button class="forbruk-item-knapp" onclick="endreForbrukLabel('${forbrukTittelValue}')">Endre</button>
     </div>
+    <ul id="kontekstmeny-${forbrukTittelValue}" class="kontekstmeny"><li onclick="fjernForbrukItem('forbruk-item-${forbrukTittelValue}')">Fjern</li></ul>
     `
     container.appendChild(nyItem);
     forbrukTittel.value = "";
     leggeTilGrupper()
+    const itemDelete = document.getElementById(`forbruk-item-${forbrukTittelValue}`);
+    const itemDeleteMeny = document.getElementById(`kontekstmeny-${forbrukTittelValue}`);
+    itemDelete.addEventListener("contextmenu", function(e) {
+        e.preventDefault(); // Hindre standardmenyen
+        itemDeleteMeny.style.display = "block";
+        itemDeleteMeny.style.left = `${e.clientX}px`;
+        itemDeleteMeny.style.top = `${e.clientY}px`;
+
+    });
+    document.addEventListener("click", function() {
+        itemDeleteMeny.style.display = "none";
+    });
 }
 
 function endreForbrukLabel(forbrukTittelValue){
@@ -72,4 +86,10 @@ function leggeTilGrupper(){
         }
 
     })
+}
+
+function fjernForbrukItem(itemId){
+    document.getElementById(itemId).remove();
+    console.log(document.getElementById("forbruk-container").children)
+    bytteTilForbruk();
 }
