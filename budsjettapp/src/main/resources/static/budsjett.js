@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function leggTilBudsjett(){
-    const container = document.getElementById("budsjett-container");
+    const container = document.getElementById("budsjett-item-container");
     document.getElementById("budsjett-container-p").style.display = "none";
     const nyItem = document.createElement("div");
     nyItem.className = "budsjett-item"
@@ -42,20 +42,45 @@ function leggTilBudsjett(){
     </div>
     `
     container.appendChild(nyItem);
-    
     localStorage.setItem(teller, budsjettTittelValue);
     localStorage.setItem(budsjettTittelValue.toLowerCase(), 0);
     teller++;
     budsjettTittel.value = "";
+    leggTilSum();
 }
 
 function leggTilSum(){
-    const container = document.getElementById("budsjett-container");
+    const wrapper = document.getElementById("budsjett-sum-wrapper");
+    wrapper.style.display = "block";
+    wrapper.innerHTML = "";
     const inntektValue = document.getElementById("budsjett-verdi-inntekt").value;
-    let sumDiv = document.createElement("div");
-    sumDiv.className = "budsjett-sum";
+    let forbrukSum = 0;
+    let budsjettValue;
+    let budsjettSum = 0;
+
+    for(let i = 0; i < teller; i++){
+        if(localStorage.getItem(i)){
+            budsjettValue = localStorage.getItem(i);
+            budsjettSum += parseInt(document.getElementById(`budsjett-verdi-${budsjettValue.toLowerCase()}`).value);
+            forbrukSum += parseInt(localStorage.getItem(budsjettValue.toLowerCase()));
+        }
+    }
+    let resterende = inntektValue - forbrukSum;
+    let hr = document.createElement("hr");
+    hr.className = "grønn-hr"
+    wrapper.append(hr);
+    let sumP = document.createElement("p");
+    sumP.className = "budsjett-sum";
     let sum;
-    //Bla gjennom alle budsjett verdier med localstorgae?
+    sumP.innerText = `
+        Total inntekt: ${inntektValue}
+        \nTotal budsjett: ${budsjettSum}
+        \nTotal forbruk: ${forbrukSum}
+        \n\nResterende beløp: ${resterende} 
+    `
+    wrapper.append(sumP);
+
+    //Bla gjennom alle budsjett verdier med localstorgae? For hver iterasjon skal man få verdi for både forbruk-sum og budsjett item
     //Plassere sum diven under alle budsjett items ved appende sum hver gang det legges til et nytt item.
 }
 
@@ -64,4 +89,5 @@ function endreBudsjettForbrukLabel(budsjettTittelValue){
     let sumForbruk = localStorage.getItem(budsjettTittelValue.toLowerCase());
     let sum = budsjettVerdi - sumForbruk;
     document.getElementById(`budsjett-forbruk-label-${budsjettTittelValue.toLowerCase()}`).innerText = budsjettVerdi+"-"+sumForbruk+"="+sum;
+    leggTilSum();
 }

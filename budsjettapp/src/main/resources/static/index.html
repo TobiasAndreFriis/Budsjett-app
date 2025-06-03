@@ -51,11 +51,14 @@
                         <label class="budsjett-forbruk-label" id="budsjett-forbruk-label-inntekt"></label>
                         <div class="budsjett-verdi">
                             <input placeholder="Beløp..." id="budsjett-verdi-inntekt" class="budsjett-item-tall">
-                            <button class="budsjett-item-knapp">Endre</button>
+                            <button class="budsjett-item-knapp" onclick="leggTilSum()">Endre</button>
                         </div>
                     </div>
                     <br>
+                    <div id="budsjett-item-container" class="budsjett-item-container"></div>
                     <p id="budsjett-container-p">Legg til budsjett!</p>
+                    <div id="budsjett-sum-wrapper" class="budsjett-sum-wrapper">
+                    </div>
                 </div>
 
                 <!--FORBRUK-->
