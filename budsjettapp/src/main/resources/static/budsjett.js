@@ -49,6 +49,16 @@ function leggTilBudsjett(){
     budsjettTittel.value = "";
 }
 
+function leggTilSum(){
+    const container = document.getElementById("budsjett-container");
+    const inntektValue = document.getElementById("budsjett-verdi-inntekt").value;
+    let sumDiv = document.createElement("div");
+    sumDiv.className = "budsjett-sum";
+    let sum;
+    //Bla gjennom alle budsjett verdier med localstorgae?
+    //Plassere sum diven under alle budsjett items ved appende sum hver gang det legges til et nytt item.
+}
+
 function endreBudsjettForbrukLabel(budsjettTittelValue){
     let budsjettVerdi = document.getElementById(`budsjett-verdi-${budsjettTittelValue.toLowerCase()}`).value;
     let sumForbruk = localStorage.getItem(budsjettTittelValue.toLowerCase());

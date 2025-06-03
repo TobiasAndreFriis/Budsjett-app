@@ -1,10 +1,14 @@
+//__BYTT_TIL_FORBRUK__//
 function bytteTilForbruk(){
     document.getElementById("budsjett-h2").style.color = "grey";
     document.getElementById("forbruk-h2").style.color = "black";
+
+    //HTML kode for å legge til forbruk
     let tittelOgKnapp = `
     <input placeholder="Legg til forbruk..." id="forbruk-tittel" class="tittel" onkeydown="if(event.key === 'Enter'){ leggTilForbruk(); }">
     <button onclick="leggTilForbruk()" class="header-knapp">+</button>
     `
+
     let tittelOgKnappDiv = document.getElementById("tittel-og-knapp");
     tittelOgKnappDiv.innerHTML = "";
     tittelOgKnappDiv.innerHTML = tittelOgKnapp;
@@ -19,6 +23,8 @@ function bytteTilForbruk(){
     }
 }
 
+
+//__LEGG_TIL_FORBRUK_ELEMENT__//
 function leggTilForbruk(){
     const container = document.getElementById("forbruk-container");
     document.getElementById("forbruk-container-p").style.display = "none";
@@ -27,6 +33,8 @@ function leggTilForbruk(){
     const forbrukTittel = document.getElementById("forbruk-tittel");
     const forbrukTittelValue = forbrukTittel.value;
     nyItem.id = `forbruk-item-${forbrukTittelValue}`;
+
+    //HTML kode for forbruk item
     nyItem.innerHTML = `
     <label class="forbruk-label">${forbrukTittelValue}</label>
     <div class="forbruk-verdi">
@@ -38,7 +46,8 @@ function leggTilForbruk(){
     </div>
     <ul id="kontekstmeny-${forbrukTittelValue}" class="kontekstmeny"><li onclick="fjernForbrukItem('forbruk-item-${forbrukTittelValue}')">Fjern</li></ul>
     `
-    container.appendChild(nyItem);
+
+    container.appendChild(nyItem); //Legger forbruk item fysisk på nettsiden
     forbrukTittel.value = "";
     leggeTilGrupper();
     lagreValgtGruppe(forbrukTittelValue);
@@ -57,6 +66,7 @@ function leggTilForbruk(){
     });
 }
 
+//__ENDRE_LABEL_FORBRUK__//
 function endreForbrukLabel(forbrukTittelValue){
     let gruppe = document.getElementById(`gruppe-valg-${forbrukTittelValue}`);
     if(gruppe.value === "gruppe"){return;}
@@ -64,18 +74,19 @@ function endreForbrukLabel(forbrukTittelValue){
     if(budsjettVerdi === ""){budsjettVerdi = 0;}
     let sumForbruk = parseInt(localStorage.getItem(gruppe.value));
     let forbrukVerdi = document.getElementById(`forbruk-verdi-${forbrukTittelValue}`).value;
+    if(forbrukVerdi === ""){forbrukVerdi = 0;}
     localStorage.setItem(`forbruk-item-${forbrukTittelValue}-beløp`, forbrukVerdi)
     localStorage.setItem(`forbruk-item-${forbrukTittelValue}-gruppe`, gruppe.value)
     console.log(sumForbruk, forbrukVerdi, budsjettVerdi)
     if(sumForbruk === null){sumForbruk = 0;}
     sumForbruk += parseInt(forbrukVerdi);
     localStorage.setItem(gruppe.value, sumForbruk);
-    console.log(typeof(budsjettVerdi))
     let sum = parseInt(budsjettVerdi) - sumForbruk;
     document.getElementById(`budsjett-forbruk-label-${gruppe.value}`).innerText = budsjettVerdi+"-"+sumForbruk+"="+sum;
     console.log(localStorage.getItem(gruppe.value))
 }
 
+//__LEGGE_TIL_GRUPPER_I_LISTE__//
 function leggeTilGrupper(){
     let selectItems = document.querySelectorAll(".forbruk-item-gruppe");
     let antallForbruk = 0;
@@ -99,6 +110,7 @@ function leggeTilGrupper(){
     localStorage.setItem("antallForbruk", antallForbruk)
 }
 
+//__LAGRE_VALGT_GRUPPE__//
 function lagreValgtGruppe(forbrukTittelValue){
     let selectIdString = `gruppe-valg-${forbrukTittelValue}`;
     let select = document.getElementById(selectIdString);
@@ -106,6 +118,7 @@ function lagreValgtGruppe(forbrukTittelValue){
     localStorage.setItem(selectIdString, value)
 }
 
+//__SETT_VERDI_GRUPPE_TIL_ITEM__//
 function settGruppeValue(){
     let selectItems = document.querySelectorAll(".forbruk-item-gruppe");
 
@@ -118,16 +131,20 @@ function settGruppeValue(){
 
 }
 
+//__FJERN_FORBRUK_ITEM__//
 function fjernForbrukItem(itemId){
     let item = document.getElementById(itemId);
-    let itemBeløp = localStorage.getItem(`${itemId}-beløp`);
-    let itemGruppe = localStorage.getItem(`${itemId}-gruppe`);
-    let gruppeForbrukSum = localStorage.getItem(itemGruppe);
+    let itemBeløp = localStorage.getItem(`${itemId}-beløp`); //Hente valgt beløp til item
+    let itemGruppe = localStorage.getItem(`${itemId}-gruppe`); //Hente valgt gruppe til item
+    let gruppeForbrukSum = localStorage.getItem(itemGruppe); //Hente hele summen til forbruk til den valgte gruppen
     gruppeForbrukSum -= itemBeløp;
-    localStorage.setItem(itemGruppe, gruppeForbrukSum)
+    localStorage.setItem(itemGruppe, gruppeForbrukSum); //Ny forbruk sum til gruppe
     let budsjettVerdi = document.getElementById(`budsjett-verdi-${itemGruppe}`).value;
+    if(budsjettVerdi === ""){budsjettVerdi = 0;}
     let sum = budsjettVerdi - gruppeForbrukSum;
     document.getElementById(`budsjett-forbruk-label-${itemGruppe}`).innerText = budsjettVerdi+"-"+gruppeForbrukSum+"="+sum;
+    localStorage.removeItem(`${itemId}-beløp`);
+    localStorage.removeItem(`${itemId}-gruppe`);
     item.remove();
     bytteTilForbruk();
 }
