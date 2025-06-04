@@ -41,7 +41,7 @@ function leggTilForbruk(){
         <select id="gruppe-valg-${forbrukTittelValue}" onchange="lagreValgtGruppe('${forbrukTittelValue}')" placeholder="Gruppe..." class="forbruk-item-gruppe" style="width: 100px;">
         <option>Gruppe...</option>
         </select>
-        <input placeholder="Beløp..." id="forbruk-verdi-${forbrukTittelValue}" class="forbruk-item-tall">
+        <input placeholder="Beløp..." id="forbruk-verdi-${forbrukTittelValue}" type="number" class="forbruk-item-tall" onkeydown="if(event.key === 'Enter'){ endreForbrukLabel('${forbrukTittelValue}'); }">
         <button class="forbruk-item-knapp" onclick="endreForbrukLabel('${forbrukTittelValue}')">Endre</button>
     </div>
     <ul id="kontekstmeny-${forbrukTittelValue}" class="kontekstmeny"><li onclick="fjernForbrukItem('forbruk-item-${forbrukTittelValue}')">Fjern</li></ul>

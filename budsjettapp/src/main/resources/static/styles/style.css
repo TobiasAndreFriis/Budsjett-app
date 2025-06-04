@@ -220,6 +220,10 @@ body{
 .budsjett-item-container{
     width: 100%;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 .budsjett-sum-wrapper{
     width: 100%;
@@ -310,4 +314,15 @@ background-color: #eee;
 
 .grønn-hr{
     border: 1px solid rgb(95, 133, 117);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
 }

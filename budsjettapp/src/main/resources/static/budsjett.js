@@ -13,6 +13,10 @@ function bytteTilBudsjett(){
 
     document.getElementById("budsjett-container").style.display = "flex"
     document.getElementById("forbruk-container").style.display = "none" 
+
+    if(teller > 0){ //Oppdatere sum delen hvis det er gjort en endring i forbruk
+        leggTilSum();
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -37,7 +41,7 @@ function leggTilBudsjett(){
     <label class="budsjett-label">${budsjettTittelValue}</label>
     <label class="budsjett-forbruk-label" id="budsjett-forbruk-label-${budsjettTittelValue.toLowerCase()}">0-0=0</label>
     <div class="budsjett-verdi">
-        <input placeholder="Beløp..." id="budsjett-verdi-${budsjettTittelValue.toLowerCase()}" class="budsjett-item-tall">
+        <input placeholder="Beløp..." id="budsjett-verdi-${budsjettTittelValue.toLowerCase()}" type="number" class="budsjett-item-tall" onkeydown="if(event.key === 'Enter'){ endreBudsjettForbrukLabel('${budsjettTittelValue}'); }">
         <button class="budsjett-item-knapp" onclick="endreBudsjettForbrukLabel('${budsjettTittelValue}')">Endre</button>
     </div>
     `
@@ -62,6 +66,7 @@ function leggTilSum(){
         if(localStorage.getItem(i)){
             budsjettValue = localStorage.getItem(i);
             budsjettSum += parseInt(document.getElementById(`budsjett-verdi-${budsjettValue.toLowerCase()}`).value);
+            if(Number.isNaN(budsjettSum)){budsjettSum = 0;}
             forbrukSum += parseInt(localStorage.getItem(budsjettValue.toLowerCase()));
         }
     }
