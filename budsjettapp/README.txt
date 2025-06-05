@@ -7,6 +7,7 @@ Ting å legge til:
  -Legge til inntekt på budsjett siden
   -Dette beløpet skal regnes med i sum
  -Trykke på enter for å endre beløp
+ -Delete budsjett
 
  -Bugs:
   -Items blir ikke fjernet fra local storage etter delete funksjon
