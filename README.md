@@ -1,6 +1,6 @@
 This budget app is made for personal use, and is not yet finished. 
 
-The goal with this app is have an easy-to-use budget app. 
+The goal with this app is to have an easy-to-use budget app. 
 ![image](https://github.com/user-attachments/assets/aaae0b23-ba0c-431b-8631-932663b9106d)
 
 You can add budgets and give them a value for how much you can use in that "group".
