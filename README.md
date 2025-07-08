@@ -9,6 +9,6 @@ You can add budgets and give them a value for how much you can use in that "grou
 You can also add expenses and attach them to a budget group. The value will automatically be added to the sum of all expenses and budget expenses.
 ![image](https://github.com/user-attachments/assets/96035a0c-f6e4-40ab-a59e-d1e83f83e00e)
 
-Sum of salary, budgets and expenses will all automatically be added to the bottom of the page in the budget page.
+Sum of salary, budgets and expenses will all automatically be added to the bottom of the budget page.
 ![image](https://github.com/user-attachments/assets/69b781ee-dc7a-4816-9094-7f1991eb43d4)
 
